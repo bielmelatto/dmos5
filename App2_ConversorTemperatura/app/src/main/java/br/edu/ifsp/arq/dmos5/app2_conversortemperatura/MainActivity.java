@@ -12,15 +12,18 @@ import android.widget.Toast;
 import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.R;
 import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.conversor.CelsiusStrategy;
 import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.conversor.FahrenheitStategy;
+import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.conversor.KelvinStrategy;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CelsiusStrategy celsiusStrategy = CelsiusStrategy.getInstance();
     private FahrenheitStategy fahrenheitStategy = FahrenheitStategy.getInstance();
+    private KelvinStrategy kelvinStategy = KelvinStrategy.getInstance();
 
     private EditText valueEditText;
     private Button converterCelsiusButton;
     private Button converterFahrenheitButton;
+    private Button converterKelvinButton;
     private TextView valorConvertido;
 
     @Override
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         converterFahrenheitButton = findViewById(R.id.button_converter_fahrenheit);
         converterFahrenheitButton.setOnClickListener(this);
+
+        converterKelvinButton = findViewById(R.id.button_converter_kelvin);
+        converterKelvinButton.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getValorCelsius();
         } else if(view == converterFahrenheitButton){
             getValorFahrenheit();
+        } else if(view == converterKelvinButton){
+            getValorKelvin();
         }
     }
 
@@ -72,5 +80,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         double value = fahrenheitStategy.getConversion(getValue());
 
         valorConvertido.setText(String.format("%.2f °F", value));
+    }
+
+    private void getValorKelvin() {
+        double value = kelvinStategy.getConversion(getValue());
+
+        valorConvertido.setText(String.format("%.2f °K", value));
     }
 }
