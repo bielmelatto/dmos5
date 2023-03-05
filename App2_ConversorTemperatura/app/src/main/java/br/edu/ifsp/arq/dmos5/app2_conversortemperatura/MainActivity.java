@@ -11,13 +11,16 @@ import android.widget.Toast;
 
 import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.R;
 import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.conversor.CelsiusStrategy;
+import br.edu.ifsp.arq.dmos5.app2_conversortemperatura.conversor.FahrenheitStategy;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CelsiusStrategy celsiusStrategy = CelsiusStrategy.getInstance();
+    private FahrenheitStategy fahrenheitStategy = FahrenheitStategy.getInstance();
 
     private EditText valueEditText;
     private Button converterCelsiusButton;
+    private Button converterFahrenheitButton;
     private TextView valorConvertido;
 
     @Override
@@ -30,12 +33,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         converterCelsiusButton = findViewById(R.id.button_converter_celsius);
         converterCelsiusButton.setOnClickListener(this);
+
+        converterFahrenheitButton = findViewById(R.id.button_converter_fahrenheit);
+        converterFahrenheitButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if(view == converterCelsiusButton){
             getValorCelsius();
+        } else if(view == converterFahrenheitButton){
+            getValorFahrenheit();
         }
     }
 
@@ -57,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getValorCelsius() {
         double value = celsiusStrategy.getConversion(getValue());
 
-        valorConvertido.setText(String.format("%.2f °", value));
+        valorConvertido.setText(String.format("%.2f °C", value));
+    }
+
+    private void getValorFahrenheit() {
+        double value = fahrenheitStategy.getConversion(getValue());
+
+        valorConvertido.setText(String.format("%.2f °F", value));
     }
 }
